@@ -101,6 +101,8 @@
     <div class="container">
 
         <a class="navbar-brand" href="/generate-quiz">Quiz Generator</a>
+        <a class="navbar-brand" href="/question">Pending Quiz</a>
+        <a class="navbar-brand" href="/quiz-history">My Quizes</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 

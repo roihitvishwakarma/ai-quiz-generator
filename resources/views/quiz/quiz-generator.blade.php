@@ -12,7 +12,8 @@
     </style>
 </head>
 <body class="p-8">
-
+    <a href="/quiz-history" class="text-2xl text-blue-800 pr-6">My Quizes</a>
+    <a href="/question" class="text-2xl text-blue-800">Pending Quiz</a>
     <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
         <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-3">Generate Quiz</h1>
         <form action="{{ route('quiz.generate') }}" method="POST">

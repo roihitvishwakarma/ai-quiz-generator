@@ -5,7 +5,7 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use App\Services\OllamaService;
+use App\Services\LLMService;
 use App\Repositories\QuestionRepository;
 
 class QuizService
@@ -19,7 +19,7 @@ class QuizService
     {
         $this->client = new Client();
         $this->apiUrl = config('app.llm.gemma_7b');
-        $this->llm = new OllamaService();
+        $this->llm = new LLMService();
         $this->questionRepo = new QuestionRepository();
     }
 
@@ -99,48 +99,5 @@ class QuizService
         - Ensure the number of questions should be = {$questionCount}.
 
         PROMPT;
-    }
-
-    
-
-    /**
-     * Calculate quiz score
-     *
-     * @param array $questions
-     * @param array $userAnswers
-     * @return array
-     */
-    public function calculateScore(array $questions, array $userAnswers): array
-    {
-        $totalQuestions = count($questions);
-        $correctAnswers = 0;
-        $results = [];
-
-        foreach ($questions as $index => $question) {
-            $questionNumber = $index + 1;
-            $userAnswer = $userAnswers[$index] ?? null;
-            $isCorrect = $userAnswer === $question['correct_answer'];
-
-            if ($isCorrect) {
-                $correctAnswers++;
-            }
-
-            $results[] = [
-                'question_number' => $questionNumber,
-                'question' => $question['question'],
-                'user_answer' => $userAnswer,
-                'correct_answer' => $question['correct_answer'],
-                'is_correct' => $isCorrect,
-                'options' => $question['options'],
-                'explanation' => $question['explanation'] ?? null
-            ];
-        }
-
-        return [
-            'total_questions' => $totalQuestions,
-            'correct_answers' => $correctAnswers,
-            'score_percentage' => round(($correctAnswers / $totalQuestions) * 100, 2),
-            'results' => $results
-        ];
     }
 }
