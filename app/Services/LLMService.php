@@ -18,7 +18,7 @@ class LLMService
             $model = config('app.llm.'.$model)['model'];
 
             $response = Http::post($url, [
-                'model'  => 'gemma:2b',
+                'model'  => $model,
                 'prompt' => $prompt,
                 'stream' => false,
                 'format' => 'json',

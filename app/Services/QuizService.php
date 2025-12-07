@@ -10,15 +10,11 @@ use App\Repositories\QuestionRepository;
 
 class QuizService
 {
-    private $client;
-    private $apiUrl;
     private $llm;
     private $questionRepo;
 
     public function __construct()
     {
-        $this->client = new Client();
-        $this->apiUrl = config('app.llm.gemma_7b');
         $this->llm = new LLMService();
         $this->questionRepo = new QuestionRepository();
     }
@@ -31,7 +27,7 @@ class QuizService
      * @param bool $withExplanations
      * @return array
      */
-    public function ask(string $topic, int $questionCount = 5, $model = 'gemma_7b'): array
+    public function ask(string $topic, int $questionCount = 5, $model = 'gemma_2b'): array
     {
         $prompt = $this->draftPrompt($topic, $questionCount);
 
@@ -39,6 +35,7 @@ class QuizService
 
             $response = $this->llm->generate($model, $prompt);
             $response = isset($response['questions']) ? $response['questions'] : null;
+
             if(is_array($response)){
                 return $this->questionRepo->store($response, $topic, auth()?->user()?->id ?? null);
             }
@@ -47,7 +44,7 @@ class QuizService
 
         } catch (\Exception $e) {
             Log::error('Quiz generation failed: ' . $e->getMessage());
-            throw new \Exception('Failed to generate quiz. Please try again.');
+            return false;
         }
     }
 

@@ -124,7 +124,7 @@ return [
     ],
 
     'llm' => [
-        'gemma_2b' => ['api' => env('GEMMA_2B_LLM_API', false), 'model' => 'gemma:2b'],
-        'gemma_7b' => ['api' => env('GEMMA_7B_LLM_API', false), 'model' => 'gemma:7b'],
+        'gemma_2b' => ['api' => env('GEMMA_LLM_API', false), 'model' => 'gemma:2b'],
+        'gemma_7b' => ['api' => env('GEMMA_LLM_API', false), 'model' => 'gemma:7b'],
     ],
 ];

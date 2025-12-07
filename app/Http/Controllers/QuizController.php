@@ -21,11 +21,7 @@ class QuizController extends Controller
         $quiz = $this->quizService->ask($request->name, 5);
 
         if(empty($quiz)){
-            return redirect()->route('generate-quiz');
-            // return response()->json([
-            //     "success" => false,
-            //     "message" => "Something Went Wrong, Try Again Later.",
-            // ], 500);
+            return redirect()->route('generate.quiz');
         }
 
         return redirect()->route('quiz.question');

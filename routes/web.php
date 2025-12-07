@@ -20,7 +20,7 @@ Route::post('/generate', [QuizController::class, 'generateQuiz'])->name('quiz.ge
 
 Route::get('/generate-quiz', function(){
     return view('quiz.quiz-generator');
-});
+})->name('generate.quiz');
 
 // Route::get('/quiz', function(){
 //     return view('quiz.quiz');
